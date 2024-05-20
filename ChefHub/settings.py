@@ -89,19 +89,19 @@ WSGI_APPLICATION = 'ChefHub.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 # DATABASES = {
-#     'default': dj_database_url.config(
-#         # Replace this value with your local database's connection string.
-#         default='postgres://chefhub_user:mG1cggJklXUEkO6MXQ263N6QdEFDVozw@dpg-cp5nagsf7o1s7390h840-a.oregon-postgres.render.com/chefhub',
-#     )
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
 # }
+
+DATABASES = {
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgres://chefhub_user:mG1cggJklXUEkO6MXQ263N6QdEFDVozw@dpg-cp5nagsf7o1s7390h840-a.oregon-postgres.render.com/chefhub',
+    )
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

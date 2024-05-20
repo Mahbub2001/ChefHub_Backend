@@ -16,6 +16,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class PublicRecipeListAPIView(generics.ListAPIView):
+    permission_classes = [AllowAny]
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-    permission_classes = [AllowAny]

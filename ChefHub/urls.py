@@ -5,14 +5,16 @@ from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 from recipe.views import PublicRecipeListAPIView
 from event.views import PublicEventListAPIView
+from rest_framework.permissions import AllowAny
 from chef import views
 
 class CustomAPIRoot(APIView):
+    permission_classes = [AllowAny] 
     def get(self, request, *args, **kwargs):
         return Response({
             'register': reverse('register', request=request),
             'login': reverse('login', request=request),
-            'logout': reverse('logout', request=request),
+            # 'logout': reverse('logout', request=request),
             'recipelist': reverse('public-recipe-list', request=request),
             'eventlist': reverse('public-event-list', request=request),
         })

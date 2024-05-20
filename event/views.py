@@ -15,6 +15,6 @@ class EventViewSet(viewsets.ModelViewSet):
 
 
 class PublicEventListAPIView(generics.ListAPIView):
+    permission_classes = [AllowAny]
     queryset = Event.objects.all()
     serializer_class = EventSerializer
-    permission_classes = [AllowAny]
