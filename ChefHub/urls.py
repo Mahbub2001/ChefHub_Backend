@@ -6,6 +6,8 @@ from rest_framework.views import APIView
 from recipe.views import PublicRecipeListAPIView
 from event.views import PublicEventListAPIView
 from rest_framework.permissions import AllowAny
+from django.conf import settings
+from django.conf.urls.static import static
 from chef import views
 
 class CustomAPIRoot(APIView):
@@ -26,3 +28,4 @@ urlpatterns = [
     path('', CustomAPIRoot.as_view(), name='api-root'),
 ]
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
