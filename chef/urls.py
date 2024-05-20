@@ -4,7 +4,7 @@ from . import views
 
 router = DefaultRouter()
 router.register(r'chefs', views.ChefViewSet)
-router.register(r'profile', views.ChefProfileViewSet, basename='chef-profile')
+router.register(r'chef/profile', views.ChefProfileViewSet, basename='chef-profile')
 
 urlpatterns = [
     path('', include(router.urls)),
@@ -12,5 +12,4 @@ urlpatterns = [
     path('login/', views.UserLoginApiView.as_view(), name='login'),
     path('logout/', views.UserLogoutView.as_view(), name='logout'),
     path('active/<uid64>/<token>/', views.activate, name='activate'),
-
 ]
