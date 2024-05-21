@@ -43,6 +43,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         account.set_password(password)
         account.is_active = False
         account.save()
+        Chef.objects.create(user=account)
         return account
 
 
