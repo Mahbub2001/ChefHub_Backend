@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'ChefHub.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgres://chefhub_user:mG1cggJklXUEkO6MXQ263N6QdEFDVozw@dpg-cp5nagsf7o1s7390h840-a.oregon-postgres.render.com/chefhub',
+        default='postgres://chefhub_ig6m_user:w3Pat5CHr1DL9GwqluFcA90NWPG8CpzV@dpg-cp6eovjtg9os73a7ivag-a.oregon-postgres.render.com/chefhub_ig6m',
     )
 }
 
@@ -137,6 +137,8 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
+
+AUTH_USER_MODEL = 'chef.Chef'
 
 LANGUAGE_CODE = 'en-us'
 

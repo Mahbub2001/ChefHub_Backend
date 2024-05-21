@@ -1,12 +1,11 @@
 from rest_framework import serializers
 from .models import Chef
-from django.contrib.auth.models import User
 from recipe.models import Recipe
 
 class ChefSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chef
-        fields = ['id', 'user', 'bio', 'profile_picture','phone_number', 'home','gender']
+        fields = ['id', 'email', 'username', 'bio', 'profile_picture', 'phone_number', 'home', 'gender']
 
 class RecipeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,39 +13,51 @@ class RecipeSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'description', 'ingredients', 'instructions', 'creation_date', 'image_url']
 
 class ChefSerializer(serializers.ModelSerializer):
-    recipes = RecipeSerializer(many=True, read_only=True) 
-
+    recipes = RecipeSerializer(many=True, read_only=True)
     class Meta:
         model = Chef
-        fields = ['id', 'user', 'bio', 'profile_picture','phone_number', 'home', 'gender', 'recipes'] 
+        fields = ['id', 'email', 'username', 'bio', 'profile_picture', 'phone_number', 'home', 'gender', 'recipes']
+
+from rest_framework import serializers
+from .models import Chef
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    confirm_password = serializers.CharField(required = True)
-    class Meta:
-        model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'confirm_password']
+    confirm_password = serializers.CharField(required=True)
     
+    class Meta:
+        model = Chef
+        fields = ['username', 'email', 'password', 'confirm_password', 'bio', 'profile_picture', 'phone_number', 'home', 'gender']
+
     def save(self):
-        username = self.validated_data['username']
-        first_name = self.validated_data['first_name']
-        last_name = self.validated_data['last_name']
         email = self.validated_data['email']
+        username = self.validated_data['username']
         password = self.validated_data['password']
         password2 = self.validated_data['confirm_password']
-        
+        bio = self.validated_data.get('bio', '')
+        profile_picture = self.validated_data.get('profile_picture', '')
+        phone_number = self.validated_data.get('phone_number', '')
+        home = self.validated_data.get('home', '')
+        gender = self.validated_data.get('gender', '')
+
         if password != password2:
-            raise serializers.ValidationError({'error' : "Password Doesn't Mactched"})
-        if User.objects.filter(email=email).exists():
-            raise serializers.ValidationError({'error' : "Email Already exists"})
-        account = User(username = username, email=email, first_name = first_name, last_name = last_name)
-        print(account)
+            raise serializers.ValidationError({'error': "Passwords do not match"})
+        if Chef.objects.filter(email=email).exists():
+            raise serializers.ValidationError({'error': "Email already exists"})
+
+        account = Chef(
+            email=email,
+            username=username,
+            bio=bio,
+            profile_picture=profile_picture,
+            phone_number=phone_number,
+            home=home,
+            gender=gender
+        )
         account.set_password(password)
         account.is_active = False
         account.save()
-        Chef.objects.create(user=account)
         return account
 
-
 class UserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField(required = True)
-    password = serializers.CharField(required = True)
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
