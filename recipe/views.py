@@ -5,11 +5,13 @@ from .serializers import RecipeSerializer
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from chef.models import Chef
+from rest_framework.authentication import TokenAuthentication
 
 class RecipeViewSet(viewsets.ModelViewSet):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
     queryset = Recipe.objects.all()
     serializer_class = RecipeSerializer
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = super().get_queryset()

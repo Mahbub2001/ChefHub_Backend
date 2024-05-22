@@ -14,6 +14,7 @@ from django.template.loader import render_to_string
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 
+
 class ChefViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     queryset = Chef.objects.all()
