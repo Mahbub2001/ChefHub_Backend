@@ -1,5 +1,5 @@
 from django.db import models
-from chef.models import Chef  # Assuming the Chef model is in the chef app
+from chef.models import Chef 
 
 class Event(models.Model):
     event_name = models.CharField(max_length=100)
