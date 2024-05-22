@@ -69,6 +69,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000", 
+    "https://chef-hub-frontend-git-main-mahbub2001s-projects.vercel.app",
 ]
 
 ROOT_URLCONF = 'ChefHub.urls'
