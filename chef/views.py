@@ -28,11 +28,24 @@ class ChefProfileViewSet(viewsets.ViewSet):
             return Response({"error": "User ID is required in the query parameters."}, status=400)
 
         try:
-            chef = Chef.objects.get(id=user_id)  # Changed to use id instead of user
+            chef = Chef.objects.get(id=user_id)  
             serializer = ChefSerializer(chef)
             return Response(serializer.data)
         except Chef.DoesNotExist:
             return Response({"error": "Chef profile not found for the provided user ID."}, status=404)
+
+    def update(self, request, pk=None):
+        try:
+            chef = Chef.objects.get(pk=pk)
+        except Chef.DoesNotExist:
+            return Response({"error": "Chef profile not found."}, status=404)
+
+        serializer = ChefSerializer(chef, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
 
 class UserRegistrationApiView(APIView):
     permission_classes = [AllowAny]

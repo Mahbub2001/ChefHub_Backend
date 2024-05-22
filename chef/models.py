@@ -33,7 +33,7 @@ class Chef(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     home = models.CharField(max_length=100, null=True, blank=True)
     gender = models.CharField(max_length=10, choices=(('M', 'Male'), ('F', 'Female'), ('O', 'Other')), null=True, blank=True)
-    is_active = models.BooleanField(default=False)  # Initially set to False until email confirmation
+    is_active = models.BooleanField(default=False)  
     is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
