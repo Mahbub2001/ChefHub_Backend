@@ -32,7 +32,7 @@ class Chef(AbstractBaseUser, PermissionsMixin):
     profile_picture = models.URLField(null=True, blank=True)
     phone_number = models.CharField(max_length=20, null=True, blank=True)
     home = models.CharField(max_length=100, null=True, blank=True)
-    gender = models.CharField(max_length=10, choices=(('M', 'Male'), ('F', 'Female'), ('O', 'Other')), null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=(('Male', 'Male'), ('Female', 'Female'), ('Other', 'Other')), null=True, blank=True)
     is_active = models.BooleanField(default=False)  
     is_staff = models.BooleanField(default=False)
 
